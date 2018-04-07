@@ -42,6 +42,21 @@ var resetButton, musicButton;
      myImage = loadImage("assets/img/image.png");
    }
  */
+ function loadIamges() {
+backImage = loadIamge("assets/img/back.png");
+transitionImage1 = loadIamge("assets/img/transition1.png");
+transitionImage2 = loadIamge("assets/img/transition2.png");
+transitionImage3 = loadIamge("assets/img/transition3.png");
+sunImage = loadIamge("assets/img/sun.png");
+moonImage = loadIamge("assets/img/moon.png");
+boltImage = loadIamge("assets/img/bolt.png");
+cloudImage = loadIamge("assets/img/cloud.png");
+
+
+
+
+
+ }
 
 
 /*
@@ -55,6 +70,17 @@ var resetButton, musicButton;
      myAnimation = loadAnimation(img1, img2, img3, img4);
    }
  */
+ function loadAnimations(){
+
+sunAnimation = loadAnimations(backImage,transition1,transitionImage2,transition3,sunImage);
+moonAnimation = loadAnimations(backImage,transition1,transitionImage2,transition3,moonImage);
+smileyAnimation = loadAnimations(backImage,transition1,transitionImage2,transition3,smileyImage);
+boltAnimation = loadAnimations(backImage,transition1,transitionImage2,transition3,boltImage);
+sunAnimation = loadAnimations(backImage,transition1,transitionImage2,transition3,sunImage);
+cloudAnimation = loadAnimations(cloudImage,transition1,transitionImage2,transition3,sunImage);
+
+
+ }
 
 
 /*
@@ -76,7 +102,11 @@ var resetButton, musicButton;
  * begin running until the assets are loaded and ready. Therefore, this function
  * is essentially a "pre-setup" function. 
  */
+function preload (){
+loadIamge();
+loadAnimations();
 
+}
 
 /*
  * function setup()
@@ -84,7 +114,18 @@ var resetButton, musicButton;
  * Therefore, assets are assumed to have been loaded and ready before this
  * function is called.
  */
-
+function setup(){
+gameScreen=createcanvas(790,370);
+gameScreen.parent("#game-screen");
+spriteWidth=120;
+spriteHeight=168;
+spriteX=70;
+spriteY=95;
+imageArray = [backImage, sunImage, moonImage, boltImage, transitionImage1, transitionImage2, transitionImage3];
+resizeImages();
+createSprites();
+spriteArray = [sunSprite1,sunSprite2,moonSprite1,moonSprite2,cloudSprite1,cloudSprite2,boltSprite1boltSprite2];
+}
 
 /*
  * function draw()
@@ -121,6 +162,13 @@ var resetButton, musicButton;
    image.resize(40, 50);
  */
 
+function resizeImages() {
+for(var i=0;i<imageArray.length;i++){
+  imageArray[i].resize(spriteWidth,spriteHeight);
+}
+
+
+}
 
 /*
  * function createSprites()
@@ -134,7 +182,19 @@ var resetButton, musicButton;
      mySprite = createSprite(0, 0, spriteWidth, spriteHeight);
    }
  */
+function createSprites(){
+sunSprite1 = createSprite(0,0,spriteWidth,spriteheight);
+sunSprite2 = createSprite(0,0,spriteWidth,spriteheight);
+moonSprite1 = createSprite(0,0,spriteWidth,spriteheight);
+moonSprite2 = createSprite(0,0,spriteWidth,spriteheight);
+boltSprite1 = createSprite(0,0,spriteWidth,spriteheight);
+boltSprite2 = createSprite(0,0,spriteWidth,spriteheight);
+cloudSprite1 = createSprite(0,0,spriteWidth,spriteheight);
+cloudSprite2 = createSprite(0,0,spriteWidth,spriteheight);
 
+
+
+}
 
 /*
  * function addAnimations()
@@ -144,7 +204,17 @@ var resetButton, musicButton;
  * each animation's frameDelay, loop, and playing properties. Finally, this
  * function calls activateSprite(s) with each sprite as input.
  */
+ function addAnimations(){
 
+var animations = [sunAnimation,sunAnimation,moonAnimation,moonAnimation,cloudAnimation,cloudAnimation,boltAnimation,boltAnimation];
+for(var i=0; i<spriteArray.length;i++){
+  spriteArray[i].addAnimations("flip"),animations[i];
+ spriteArray[i].animation.frameDelay 10;
+ spriteArray[i].animation.looping= false;
+ spriteArray[i].animation.playing = false;
+}
+
+ }
 
 /*
  * function placeSprites()
