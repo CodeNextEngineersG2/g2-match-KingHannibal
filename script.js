@@ -42,16 +42,17 @@ var resetButton, musicButton;
      myImage = loadImage("assets/img/image.png");
    }
  */
- function loadIamges() {
-backImage = loadIamge("assets/img/back.png");
-transitionImage1 = loadIamge("assets/img/transition1.png");
-transitionImage2 = loadIamge("assets/img/transition2.png");
-transitionImage3 = loadIamge("assets/img/transition3.png");
-sunImage = loadIamge("assets/img/sun.png");
-moonImage = loadIamge("assets/img/moon.png");
-boltImage = loadIamge("assets/img/bolt.png");
-cloudImage = loadIamge("assets/img/cloud.png");
-
+ function loadImages() {
+  backImage = loadImage("assets/img/back.png");
+  transitionImage1 = loadImage("assets/img/transition1.png");
+  transitionImage2 = loadImage("assets/img/transition2.png");
+  transitionImage3 = loadImage("assets/img/transition3.png");
+  sunImage = loadImage("assets/img/sun.png");
+  moonImage = loadImage("assets/img/moon.png");
+  boltImage = loadImage("assets/img/bolt.png");
+  cloudImage = loadImage("assets/img/cloud.png");
+  heartImage = loadImage("assets/img/heart.png");
+  smileyImage = loadImage("assets/img/smiley.png");
 
 
 
@@ -67,17 +68,17 @@ cloudImage = loadIamge("assets/img/cloud.png");
  * you'd like the animation to be played, from the first frame to the last.
  * Example:
    function loadAnimations() {
-     myAnimation = loadAnimation(img1, img2, img3, img4);
+     myAnimation = loadAnimation(img1, img2, img3, img4);s
    }
  */
  function loadAnimations(){
 
-sunAnimation = loadAnimations(backImage,transition1,transitionImage2,transition3,sunImage);
-moonAnimation = loadAnimations(backImage,transition1,transitionImage2,transition3,moonImage);
-smileyAnimation = loadAnimations(backImage,transition1,transitionImage2,transition3,smileyImage);
-boltAnimation = loadAnimations(backImage,transition1,transitionImage2,transition3,boltImage);
-sunAnimation = loadAnimations(backImage,transition1,transitionImage2,transition3,sunImage);
-cloudAnimation = loadAnimations(cloudImage,transition1,transitionImage2,transition3,sunImage);
+  sunAnimation = loadAnimation(backImage,transitionImage1,transitionImage2,transitionImage3,sunImage);
+  moonAnimation = loadAnimation(backImage,transitionImage1,transitionImage2,transitionImage3,moonImage);
+  smileyAnimation = loadAnimation(backImage,transitionImage1,transitionImage2,transitionImage3,smileyImage);
+  boltAnimation = loadAnimation(backImage,transitionImage1,transitionImage2,transitionImage3,boltImage);
+  heartAnimation = loadAnimation(backImage,transitionImage1,transitionImage2,transitionImage3,heartImage);
+  cloudAnimation = loadAnimation(backImage,transitionImage1,transitionImage2,transitionImage3, cloudImage);
 
 
  }
@@ -103,8 +104,8 @@ cloudAnimation = loadAnimations(cloudImage,transition1,transitionImage2,transiti
  * is essentially a "pre-setup" function. 
  */
 function preload (){
-loadIamge();
-loadAnimations();
+  loadImages();
+  loadAnimations();
 
 }
 
@@ -115,22 +116,33 @@ loadAnimations();
  * function is called.
  */
 function setup(){
-gameScreen=createcanvas(790,370);
-gameScreen.parent("#game-screen");
-spriteWidth=120;
-spriteHeight=168;
-spriteX=70;
-spriteY=95;
-imageArray = [backImage, sunImage, moonImage, boltImage, transitionImage1, transitionImage2, transitionImage3];
-resizeImages();
-createSprites();
-spriteArray = [sunSprite1,sunSprite2,moonSprite1,moonSprite2,cloudSprite1,cloudSprite2,boltSprite1boltSprite2];
+  gameScreen=createCanvas(790,370);
+  gameScreen.parent("#game-screen");
+  spriteWidth=120;
+  spriteHeight=168;
+  spriteX=70;
+  spriteY=95;
+  imageArray = [backImage, sunImage, moonImage, boltImage, cloudImage, smileyImage, heartImage, transitionImage1, transitionImage2, transitionImage3];
+  resizeImages();
+  createSprites();
+    spriteArray = [boltSprite1, boltSprite2, cloudSprite1, cloudSprite2,
+                 sunSprite1, sunSprite2, moonSprite1, moonSprite2,
+                 smileySprite1, smileySprite2, heartSprite1, heartSprite2];
+  addAnimations();
+
+
+  shuffle(spriteArray, true);
+  placeSprites();
+  spritesActive=true;
 }
 
 /*
  * function draw()
  */
+function draw(){
+  drawSprites();
 
+}
 /*
  * function init()
  * Initializes various elements of the game. Called in both setup() and
@@ -163,9 +175,11 @@ spriteArray = [sunSprite1,sunSprite2,moonSprite1,moonSprite2,cloudSprite1,cloudS
  */
 
 function resizeImages() {
-for(var i=0;i<imageArray.length;i++){
-  imageArray[i].resize(spriteWidth,spriteHeight);
-}
+  for(var i=0;i<imageArray.length;i++){
+    console.log(imageArray[i]);
+    imageArray[i].resize(spriteWidth,spriteHeight);
+
+  }
 
 
 }
@@ -183,14 +197,18 @@ for(var i=0;i<imageArray.length;i++){
    }
  */
 function createSprites(){
-sunSprite1 = createSprite(0,0,spriteWidth,spriteheight);
-sunSprite2 = createSprite(0,0,spriteWidth,spriteheight);
-moonSprite1 = createSprite(0,0,spriteWidth,spriteheight);
-moonSprite2 = createSprite(0,0,spriteWidth,spriteheight);
-boltSprite1 = createSprite(0,0,spriteWidth,spriteheight);
-boltSprite2 = createSprite(0,0,spriteWidth,spriteheight);
-cloudSprite1 = createSprite(0,0,spriteWidth,spriteheight);
-cloudSprite2 = createSprite(0,0,spriteWidth,spriteheight);
+sunSprite1 = createSprite(0,0,spriteWidth,spriteHeight);
+sunSprite2 = createSprite(0,0,spriteWidth,spriteHeight);
+moonSprite1 = createSprite(0,0,spriteWidth,spriteHeight);
+moonSprite2 = createSprite(0,0,spriteWidth,spriteHeight);
+boltSprite1 = createSprite(0,0,spriteWidth,spriteHeight);
+boltSprite2 = createSprite(0,0,spriteWidth,spriteHeight);
+cloudSprite1 = createSprite(0,0,spriteWidth,spriteHeight);
+cloudSprite2 = createSprite(0,0,spriteWidth,spriteHeight);
+smileySprite1 = createSprite(0,0,spriteWidth,spriteHeight);
+smileySprite2 = createSprite(0,0,spriteWidth,spriteHeight);
+heartSprite1 = createSprite(0,0,spriteWidth,spriteHeight);
+heartSprite2 = createSprite(0,0,spriteWidth,spriteHeight);
 
 
 
@@ -205,14 +223,18 @@ cloudSprite2 = createSprite(0,0,spriteWidth,spriteheight);
  * function calls activateSprite(s) with each sprite as input.
  */
  function addAnimations(){
-
-var animations = [sunAnimation,sunAnimation,moonAnimation,moonAnimation,cloudAnimation,cloudAnimation,boltAnimation,boltAnimation];
-for(var i=0; i<spriteArray.length;i++){
-  spriteArray[i].addAnimations("flip"),animations[i];
- spriteArray[i].animation.frameDelay 10;
- spriteArray[i].animation.looping= false;
- spriteArray[i].animation.playing = false;
-}
+// console.log(spriteArray.length, spriteArray)
+  var animations = [sunAnimation,sunAnimation,moonAnimation,moonAnimation,cloudAnimation,cloudAnimation,boltAnimation,boltAnimation,smileyAnimation,smileyAnimation,heartAnimation,heartAnimation];
+    for(var i=0; i<spriteArray.length; i++){
+      console.log('yo',i, animations[i])
+      spriteArray[i].addAnimation("flip" ,animations[i]);
+     // console.log(spriteArray[i]);
+      spriteArray[i].animation.frameDelay=10;
+      spriteArray[i].animation.looping= false;
+      spriteArray[i].animation.playing = false;
+      activateSprites(spriteArray[i]);
+      
+    }
 
  }
 
@@ -222,6 +244,22 @@ for(var i=0; i<spriteArray.length;i++){
  * pattern you like. For starters, try arranging the sprites in a simple
  * grid-like pattern (e.g., 2x2 if you only have four sprites).
  */
+ function placeSprites(){
+  for(var i=0; i<spriteArray.length; i++){
+    spriteArray[i].position.x = spriteX;
+    spriteArray[i].position.y = spriteY;
+
+    if((i+1)%6===0){
+        spriteX=70;
+        spriteY+=spriteHeight+10;
+    }
+    else{
+      spriteX+=spriteWidth+10;
+    }
+
+  }
+
+ }
 
 
 /*
@@ -235,7 +273,25 @@ for(var i=0; i<spriteArray.length;i++){
  * spriteOne and spriteTwo to sprites in the order tht they are clicked. When
  * two sprites have been clicked, the function calls checkMatch().
  */
+ function activateSprites(s){
+     s.onMousePressed = function(){
+      if(activateSprites==true && s.animations.getFrame()!== s.animations.getLastFrame()){
+          if(firstChoice==undefined){
+              firstChoice=s;
+              s.animations.goToframe(s.animations.getLastFrame())
 
+               }
+              else if(firstChoice!=s){
+                    secondChoice= s;
+                     s.animations.goToframe(s.animations.getLastFrame())
+                 }
+
+          }
+      
+    }
+
+
+ }
 
 
 /*
